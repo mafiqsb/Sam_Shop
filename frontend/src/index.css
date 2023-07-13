@@ -7,11 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* headers */
+
 .header1 {
   background-color: #1a4645;
   padding-left: 2rem;
   padding-right: 2rem;
-  margin-bottom: 1rem;
+
   font-size: small;
   display: flex;
   justify-content: space-between;
@@ -23,15 +25,16 @@ body {
 
 .insideheader1 a {
   color: white;
-  font-weight: 900;
+  font-weight: 500;
   text-decoration: none;
   text-align: center;
   line-height: 3.33;
+  font-size: 13px;
 }
 
 .header1 p {
   color: white;
-  font-weight: 900;
+  font-weight: 500;
   padding-right: 1rem;
 }
 
@@ -58,11 +61,56 @@ body {
   align-items: center;
 }
 
-.header2 a {
-  background-color: white;
+.header2 {
+  display: flex;
+  border-bottom: double;
   padding: 1rem;
-  text-decoration: none;
-  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.header2 a img {
+  width: 100%;
+  width: 300px;
+  height: 100px;
+  object-fit: cover;
+}
+
+/* main */
+
+main {
+  padding: 1rem;
+}
+
+main .titles {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.products {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+}
+
+.product {
+  border: 1px #404040;
+  margin: 1rem;
+}
+
+.product img {
+  width: 100%;
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding-left: 1rem;
+}
+
+.product-info .price {
+  font-size: 15px;
   font-weight: bolder;
-  color: black;
 }
