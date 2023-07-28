@@ -1,6 +1,8 @@
-import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,6 +15,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/esm/Button';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useContext } from 'react';
 import { Store } from './Store';
 import Badge from 'react-bootstrap/Badge';
@@ -21,10 +24,23 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
 
 function App() {
-  const { state } = useContext(Store);
-  const { cart } = state;
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart, userInfo } = state;
+
+  const signoutHandler = () => {
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('cartItems');
+    window.location.href = '/signin';
+  };
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
@@ -76,15 +92,44 @@ function App() {
                 </Col>
                 <Col md={4}>
                   <div className="chooseForm d-flex justify-content-end">
-                    <Nav>
-                      <Link
-                        to="/cart"
-                        className="nav-link cartIcon"
-                        style={{ color: 'black' }}
-                      >
-                        Login
-                      </Link>
-                    </Nav>
+                    {userInfo ? (
+                      <>
+                        <Nav>
+                          <NavDropdown
+                            title={
+                              <span className="text-dark">{userInfo.name}</span>
+                            }
+                            id="nav-dropdown-dark-example"
+                            menuVariant="dark"
+                          >
+                            <LinkContainer to="/profile">
+                              <NavDropdown.Item>User Profile</NavDropdown.Item>
+                            </LinkContainer>
+                            <LinkContainer to="/orderhistory">
+                              <NavDropdown.Item>Order History</NavDropdown.Item>
+                            </LinkContainer>
+                            <NavDropdown.Divider />
+                            <Link
+                              className="dropdown-item"
+                              to="#signout"
+                              onClick={signoutHandler}
+                            >
+                              Sign Out
+                            </Link>
+                          </NavDropdown>
+                        </Nav>
+                      </>
+                    ) : (
+                      <Nav>
+                        <Link
+                          to="/signin"
+                          className="nav-link cartIcon"
+                          style={{ color: 'black' }}
+                        >
+                          Login
+                        </Link>
+                      </Nav>
+                    )}
 
                     <Nav>
                       <Link
@@ -118,11 +163,16 @@ function App() {
         </header>
         <main>
           <Container>
+            <ToastContainer position="bottom-center" limit={1} />
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/shipping" element={<ShippingAddressScreen />} />
+              <Route path="/signup" element={<SignUpScreen />} />
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/order/:id" element={<OrderScreen />} />
             </Routes>
           </Container>
         </main>

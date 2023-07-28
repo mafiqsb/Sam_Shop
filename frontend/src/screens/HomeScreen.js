@@ -8,6 +8,7 @@ import Products from '../components/Products';
 import LoadingBox from '../components/LoadingBox';
 import Container from 'react-bootstrap/esm/Container';
 import MessageBox from '../components/MessageBox';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -46,6 +47,9 @@ function HomeScreen() {
 
   return (
     <div>
+      <Helmet>
+        <title>Sam Shop</title>
+      </Helmet>
       <div className="titles">
         <h1>Collections</h1>
       </div>

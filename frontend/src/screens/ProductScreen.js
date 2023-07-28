@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Store } from '../Store.js';
 
 import Col from 'react-bootstrap/esm/Col';
@@ -34,6 +34,8 @@ const reducer = (state, action) => {
 export default function ProductScreen() {
   const params = useParams();
   const { slug } = params;
+
+  const navigate = useNavigate();
 
   const [sizeClick, setSizeClick] = useState('');
   const [count, setCount] = useState(1);
@@ -74,6 +76,7 @@ export default function ProductScreen() {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity, sizeClick },
     });
+    navigate('/cart');
   };
 
   const sizeClickHandler = (size) => {
