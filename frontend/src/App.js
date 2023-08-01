@@ -19,7 +19,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useContext } from 'react';
 import { Store } from './Store';
 import Badge from 'react-bootstrap/Badge';
-import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import CartScreen from './screens/CartScreen';
@@ -28,6 +27,11 @@ import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import SearchBox from './components/SearchBox';
+import NavbarCategories from './components/NavbarCategories';
+import SearchScreen from './screens/SearchScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -71,16 +75,7 @@ function App() {
               <Row className="justify-content-between">
                 <Col md={4}>
                   <div className="searchForm">
-                    <Form className="d-flex">
-                      <Form.Control
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                        className="me-2"
-                        size="sm"
-                      />
-                      <Button variant="outline-dark">Search</Button>
-                    </Form>
+                    <SearchBox />
                   </div>
                 </Col>
                 <Col md={4}>
@@ -159,6 +154,14 @@ function App() {
                 </Col>
               </Row>
             </Container>
+            <Navbar
+              bg="dark"
+              data-bs-theme="dark"
+              className="header2 d-flex "
+              style={{ marginTop: '100px' }}
+            >
+              <NavbarCategories />
+            </Navbar>
           </div>
         </header>
         <main>
@@ -173,6 +176,12 @@ function App() {
               <Route path="/signup" element={<SignUpScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/order/:id" element={<OrderScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route
+                path="/orderhistory"
+                element={<OrderHistoryScreen />}
+              ></Route>
             </Routes>
           </Container>
         </main>
