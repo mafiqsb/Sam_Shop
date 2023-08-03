@@ -207,3 +207,6 @@ function App() {
 }
 
 export default App;
+
+// "start": "nodemon server.js",
+// "test": "echo \"Error: no test specified\" && exit 1"
